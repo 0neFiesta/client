@@ -1,0 +1,30 @@
+{
+  "name": "0nefiesta",
+  "version": "1.0.0",
+  "description": "The ultimate party game",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html --hmr-port 8080"
+  },
+  "author": "Brendan, Quinn, Connor",
+  "license": "MIT",
+  "alias": {
+    "f-grid": "./lib/grid.jsx",
+    "f-mediaquery": "./lib/mediaquery.jsx"
+  },
+  "dependencies": {
+    "antd": "^3.15.1",
+    "classnames": "^2.2.6",
+    "duix": "^1.0.5",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "socket.io-client": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "less": "^3.9.0"
+  }
+}

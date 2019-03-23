@@ -1,0 +1,122 @@
+<<!DOCTYPE html>
+
+<html lang = "en">
+  <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+  <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
+  <style>
+    body{
+      background: grey;
+    }
+    canvas {
+      padding: 0;
+      margin: auto;
+      display: block;
+      width: 800px;
+      height: 600px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+    }
+  </style>
+
+  <body onload="init();" onclick="game()">
+    <canvas id="demoCanvas" width="800" height="600"></canvas>
+
+    <script>
+      var game;
+
+      function init() {
+        var stage = new createjs.Stage("demoCanvas");
+        var width = 800;
+        var height = 600;
+        var success = 1;
+
+
+        //table
+        var rect = new createjs.Shape();
+        rect.graphics.beginFill("Brown").drawRect(0 ,height/2 , width, 10);
+        stage.addChild(rect);
+
+
+
+
+        //bottle
+        var bitmap = new createjs.Bitmap("water.png");
+        bitmap.setTransform(width/2, height/3, .25, .25);
+        stage.addChild(bitmap);
+
+        createjs.Tween.get(bitmap);
+
+
+        //click bar
+        var bar = new createjs.Shape();
+        bar.graphics.beginFill("Blue").drawRect(0, height-60, width, 30)
+        bar.x;
+        bar.y;
+        bar.scaleX = 1;
+        stage.addChild(bar);
+
+        var barR = new createjs.Shape();
+        barR.graphics.beginFill("Red").drawRect(0, height-30, width, 30)
+        stage.addChild(barR);
+
+        var barR = new createjs.Shape();
+        barR.graphics.beginFill("Yellow").drawRect(width / 8 * 3, height-30, width/4, 30)
+        stage.addChild(barR);
+
+        var barG = new createjs.Shape();
+        barG.graphics.beginFill("Green").drawRect(width / 32 * 15, height-30, width/16, 30)
+        stage.addChild(barG);
+
+        createjs.Tween.get(bar, { loop: true })
+        .to({scaleX: 0 }, 3000,createjs.Ease.getPowInOut(4))
+        .to({scaleX: 1 }, 3000,createjs.Ease.getPowInOut(4));
+
+        game = function(){
+          createjs.Tween.get(bar, {override:true}).to({},0)
+
+
+          if(bar.scaleX < .53 && bar.scaleX > .47){
+            success = 2;
+          } else if(bar.scaleX < .63 && bar.scaleX > .37){
+            success = 1;
+          } else {
+            success = 0;
+          }
+
+          if(success === 1){
+            createjs.Tween.get(bitmap,{override:true}).to({ rotation: 360*4 ,y: 27}, 2000,createjs.Ease.getPowInOut(4));
+          } else if(success === 2){
+            //bottleUpsideDownShadow
+            var bitmapU = new createjs.Bitmap("waterU.png");
+            bitmapU.setTransform(width/2, height/3, .25, .25);
+            stage.addChild(bitmapU);
+
+            createjs.Tween.get(bitmap).to({alpha:0, visible:false})
+            createjs.Tween.get(bitmapU).to({ rotation: 360*4 + 180 ,y: 300}, 3000,createjs.Ease.getPowInOut(4));
+          } else {
+            //bottleUpsideDownShadow
+            var bitmapS = new createjs.Bitmap("waterS.png");
+            bitmapS.setTransform(width/2, height/3, .25, .25);
+            stage.addChild(bitmapS);
+
+            createjs.Tween.get(bitmap).to({alpha:0, visible:false});
+            createjs.Tween.get(bitmapS).to({ rotation: 360*4 + 90 ,y: 206}, 2000,createjs.Ease.getPowInOut(4));
+          }
+        }
+
+        createjs.Ticker.setFPS(60);
+        createjs.Ticker.addEventListener("tick", stage);
+      }
+
+
+
+    </script>
+  </body>
+
+
+
+</html>
